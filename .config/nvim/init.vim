@@ -7,6 +7,8 @@
 :set softtabstop=4
 :set mouse=a
 
+set clipboard+=unnamedplus
+
 call plug#begin()
 Plug 'jiangmiao/auto-pairs' "Matching brakets
 
@@ -26,6 +28,7 @@ Plug 'thaerkh/vim-workspace'
 Plug 'vim-ctrlspace/vim-ctrlspace'
 
 call plug#end()
+
 
 :colorscheme happy_hacking 
 
@@ -85,3 +88,14 @@ tnoremap <Esc> <C-\><C-n>
 " resizing the window
 nmap <leader>+ :vertical res +10<CR>
 nmap <leader>- :vertical res -10<CR>
+
+" Clipboard
+nnoremap  <leader>y  "+y
+nnoremap  <leader>yy  "+yy
+nnoremap <leader>p "+p
+
+" Navigating panes
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
