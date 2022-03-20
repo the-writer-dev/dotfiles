@@ -78,16 +78,26 @@ nnoremap <leader>g :Neogit<CR>
 
 " Start terminal in insert mode
 au BufEnter * if &buftype == 'terminal' | endif
-function! OpenTerminal()
+function! OpenTerminalVertically()
   vsplit term://zsh
 endfunction
 
-nmap <leader>t :call OpenTerminal()//zsh<CR>
+au BufEnter * if &buftype == 'terminal' | endif
+function! OpenTerminalHorizontally()
+  split term://zsh
+endfunction
+
+nmap <leader>t :call OpenTerminalVertically()//zsh<CR>
+nmap <leader>T :call OpenTerminalHorizontally()//zsh<CR>
 tnoremap <Esc> <C-\><C-n>
 
-" resizing the window
+" resizing the window horizontally
 nmap <leader>+ :vertical res +10<CR>
 nmap <leader>- :vertical res -10<CR>
+
+" resizing the window vertically
+nmap <leader>w+ :res +10<CR>
+nmap <leader>w- :res -10<CR>
 
 " Clipboard
 nnoremap  <leader>y  "+y
