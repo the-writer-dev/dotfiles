@@ -12,6 +12,7 @@ set clipboard+=unnamedplus
 call plug#begin()
 Plug 'jiangmiao/auto-pairs' "Matching brakets
 
+"Plug 'jeetsukumaran/vim-buffergator' " Buffer management
 Plug 'preservim/nerdcommenter' "NerdCommenter
 Plug 'preservim/nerdtree' " NerdTree
 Plug 'vim-airline/vim-airline' " Status bar
@@ -64,6 +65,11 @@ nnoremap <silent> K :call <SID>show_documentation()<CR>
 " Search
 nmap <leader><Space> :Files<CR>
 nmap <leader>rg :Rg<CR>
+nmap <leader>bi :Buffers<CR>
+nnoremap <leader>b :ls<cr>:b<space>
+nnoremap <leader>v :ls<cr>:vsp<space>\|<space>b<space>
+nnoremap <leader>s :ls<cr>:sp<space>\|<space>b<space>
+noremap <leader>bd :ls<cr>:bd<space>
 
 " Nerdtree
 nmap <leader>f :NERDTreeToggle<CR>
