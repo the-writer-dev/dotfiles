@@ -24,6 +24,7 @@ Plug 'junegunn/fzf.vim' " Fuzzy Search
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'TimUntersberger/neogit'
+Plug 'airblade/vim-gitgutter/'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'thaerkh/vim-workspace'
 Plug 'vim-ctrlspace/vim-ctrlspace'
