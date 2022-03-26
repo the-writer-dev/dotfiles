@@ -1,18 +1,18 @@
-:set number
-:set relativenumber
-:set autoindent
-:set tabstop=4
-:set shiftwidth=4
-:set smarttab
-:set softtabstop=4
-:set mouse=a
-
+set number
+set relativenumber
+set autoindent
+set tabstop=4
+set shiftwidth=4
+set smarttab
+set softtabstop=4
+set mouse=a
+set nohlsearch
+set cursorline
 set clipboard+=unnamedplus
 
 call plug#begin()
 Plug 'jiangmiao/auto-pairs' "Matching brakets
 
-"Plug 'jeetsukumaran/vim-buffergator' " Buffer management
 Plug 'preservim/nerdcommenter' "NerdCommenter
 Plug 'preservim/nerdtree' " NerdTree
 Plug 'vim-airline/vim-airline' " Status bar
