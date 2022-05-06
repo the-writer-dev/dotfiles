@@ -9,6 +9,8 @@ set mouse=a
 set nohlsearch
 set cursorline
 set clipboard+=unnamedplus
+set modifiable
+
 
 call plug#begin()
 Plug 'jiangmiao/auto-pairs' "Matching brakets
@@ -19,21 +21,25 @@ Plug 'vim-airline/vim-airline' " Status bar
 
 Plug 'rafi/awesome-vim-colorschemes' " Color Schemes
 Plug 'ryanoasis/vim-devicons' " Developer Icons
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim' " Fuzzy Search
 
 Plug 'nvim-lua/plenary.nvim'
-Plug 'TimUntersberger/neogit'
+"Plug 'nvim-telescope/telescope.nvim'
+
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim' " Fuzzy Search
+Plug 'jlanzarotta/bufexplorer'
+
 Plug 'airblade/vim-gitgutter/'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'thaerkh/vim-workspace'
 Plug 'vim-ctrlspace/vim-ctrlspace'
 
+Plug 'mhinz/vim-startify'
 call plug#end()
 
+:colorscheme PaperColor
 
-:colorscheme happy_hacking 
-
+let g:airline_powerline_fonts = 1
 let g:NERDTreeDirArrowExpandable="+"
 let g:NERDTreeDirArrowCollapsible="~"
 
@@ -57,6 +63,9 @@ nmap <silent>gd <Plug>(coc-definition)
 nmap <silent>gy <Plug>(coc-type-definition)
 nmap <silent>gi <Plug>(coc-implementation)
 nmap <silent>gr <Plug>(coc-references)
+nmap <silent> \gs :split<CR><Plug>(coc-definition)
+nmap <silent> \gv :vsplit<CR><Plug>(coc-definition)
+
 " rename
 nmap <leader>rn <Plug>(coc-rename)
 
@@ -64,24 +73,18 @@ nmap <leader>rn <Plug>(coc-rename)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 " Search
-nmap <leader><Space> :Files<CR>
-nmap <leader>rg :Rg<CR>
-nmap <leader>bi :Buffers<CR>
 nnoremap <leader>b :ls<cr>:b<space>
 nnoremap <leader>v :ls<cr>:vsp<space>\|<space>b<space>
 nnoremap <leader>s :ls<cr>:sp<space>\|<space>b<space>
-noremap <leader>bd :ls<cr>:bd<space>
+nnoremap <leader>bd :ls<cr>:bd<space>
 
 " Nerdtree
-nmap <leader>f :NERDTreeToggle<CR>
-nmap <leader>F :NERDTreeFind<CR>
+nnoremap <leader>pp :NERDTreeToggle<CR>
+nnoremap <leader>P :NERDTreeFind<CR>
 
 " Buffer
-nnoremap <leader>j :bprev<CR>
+nnoremap <leader>j :bprevious<CR>
 nnoremap <leader>k :bnext<CR>
-
-" Open Neogit
-nnoremap <leader>g :Neogit<CR>
 
 " Start terminal in insert mode
 au BufEnter * if &buftype == 'terminal' | endif
@@ -116,3 +119,36 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+
+" `SPC l s` - save current session
+nnoremap <leader>ls :SSave<CR>
+" `SPC l l` - list sessions / switch to different project
+nnoremap <leader>ll :SClose<CR>
+
+" Telescope
+"nnoremap <leader>ff <cmd>Telescope find_files<cr>
+"nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+"nnoremap <leader>fb <cmd>Telescope buffers<cr>
+
+nmap <leader>ff :Files<CR>
+nmap <leader>rg :Rg<CR>
+nmap <leader>bi :Buffers<CR>
+
+
+"FZF Buffer Delete
+function! s:list_buffers()
+  redir => list
+  silent ls
+  redir END
+  return split(list, "\n")
+endfunction
+
+function! s:delete_buffers(lines)
+  execute 'bwipeout' join(map(a:lines, {_, line -> split(line)[0]}))
+endfunction
+
+command! BD call fzf#run(fzf#wrap({
+  \ 'source': s:list_buffers(),
+  \ 'sink*': { lines -> s:delete_buffers(lines) },
+  \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
+\ }))
