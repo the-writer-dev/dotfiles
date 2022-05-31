@@ -33,8 +33,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'jlanzarotta/bufexplorer'
 Plug 'mhinz/vim-startify'
 
-Plug 'nvim-lua/plenary.nvim'
-
 Plug 'wakatime/vim-wakatime'
 call plug#end()
 
