@@ -10,7 +10,10 @@ set nohlsearch
 set cursorline
 set clipboard+=unnamedplus
 set modifiable
-
+set guicursor=
+set nocompatible
+set hidden
+set encoding=utf-8
 
 call plug#begin()
 Plug 'jiangmiao/auto-pairs' "Matching brakets
@@ -18,30 +21,30 @@ Plug 'jiangmiao/auto-pairs' "Matching brakets
 Plug 'preservim/nerdcommenter' "NerdCommenter
 Plug 'preservim/nerdtree' " NerdTree
 Plug 'vim-airline/vim-airline' " Status bar
-
-Plug 'rafi/awesome-vim-colorschemes' " Color Schemes
+Plug 'EdenEast/nightfox.nvim' " ColorScheme I love
 Plug 'ryanoasis/vim-devicons' " Developer Icons
-
-Plug 'nvim-lua/plenary.nvim'
-"Plug 'nvim-telescope/telescope.nvim'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim' " Fuzzy Search
-Plug 'jlanzarotta/bufexplorer'
 
 Plug 'airblade/vim-gitgutter/'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'thaerkh/vim-workspace'
-Plug 'vim-ctrlspace/vim-ctrlspace'
 
+Plug 'jlanzarotta/bufexplorer'
 Plug 'mhinz/vim-startify'
+
+Plug 'nvim-lua/plenary.nvim'
+
+Plug 'wakatime/vim-wakatime'
 call plug#end()
 
-:colorscheme PaperColor
+:colorscheme terafox 
 
 let g:airline_powerline_fonts = 1
 let g:NERDTreeDirArrowExpandable="+"
 let g:NERDTreeDirArrowCollapsible="~"
+
+let g:CtrlSpaceDefaultMappingKey = "<C-space> "
 
 nmap <SPACE> <Nop>
 let mapleader=" "
@@ -73,6 +76,7 @@ nmap <leader>rn <Plug>(coc-rename)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 " Search
+" `SPC b e` - open buf explorer to delete multiple buffers at once like Emacs
 nnoremap <leader>b :ls<cr>:b<space>
 nnoremap <leader>v :ls<cr>:vsp<space>\|<space>b<space>
 nnoremap <leader>s :ls<cr>:sp<space>\|<space>b<space>
@@ -124,31 +128,9 @@ nnoremap <C-l> <C-w>l
 nnoremap <leader>ls :SSave<CR>
 " `SPC l l` - list sessions / switch to different project
 nnoremap <leader>ll :SClose<CR>
-
-" Telescope
-"nnoremap <leader>ff <cmd>Telescope find_files<cr>
-"nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-"nnoremap <leader>fb <cmd>Telescope buffers<cr>
+" `SPc l d` - delete sessions
+nnoremap <leader>ld :SDelete<CR>
 
 nmap <leader>ff :Files<CR>
 nmap <leader>rg :Rg<CR>
 nmap <leader>bi :Buffers<CR>
-
-
-"FZF Buffer Delete
-function! s:list_buffers()
-  redir => list
-  silent ls
-  redir END
-  return split(list, "\n")
-endfunction
-
-function! s:delete_buffers(lines)
-  execute 'bwipeout' join(map(a:lines, {_, line -> split(line)[0]}))
-endfunction
-
-command! BD call fzf#run(fzf#wrap({
-  \ 'source': s:list_buffers(),
-  \ 'sink*': { lines -> s:delete_buffers(lines) },
-  \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
-\ }))
