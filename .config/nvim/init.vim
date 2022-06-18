@@ -22,6 +22,8 @@ Plug 'preservim/nerdcommenter' "NerdCommenter
 Plug 'preservim/nerdtree' " NerdTree
 Plug 'vim-airline/vim-airline' " Status bar
 Plug 'EdenEast/nightfox.nvim' " ColorScheme I love
+Plug 'rafi/awesome-vim-colorschemes'
+Plug 'jacoborus/tender.vim'
 Plug 'ryanoasis/vim-devicons' " Developer Icons
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -36,7 +38,7 @@ Plug 'mhinz/vim-startify'
 Plug 'wakatime/vim-wakatime'
 call plug#end()
 
-:colorscheme terafox 
+:colorscheme happy_hacking 
 
 let g:airline_powerline_fonts = 1
 let g:NERDTreeDirArrowExpandable="+"
