@@ -15,6 +15,7 @@ set nocompatible
 set hidden
 set encoding=utf-8
 
+autocmd FileType javascript setlocal shiftwidth=2 tabstop=2                                                   
 call plug#begin()
 Plug 'jiangmiao/auto-pairs' "Matching brakets
 
@@ -22,8 +23,13 @@ Plug 'preservim/nerdcommenter' "NerdCommenter
 Plug 'preservim/nerdtree' " NerdTree
 Plug 'vim-airline/vim-airline' " Status bar
 Plug 'EdenEast/nightfox.nvim' " ColorScheme I love
-Plug 'rafi/awesome-vim-colorschemes'
 Plug 'jacoborus/tender.vim'
+Plug 'carakan/new-railscasts-theme'
+Plug 'tomasiser/vim-code-dark'
+Plug 'dracula/vim'
+Plug 'morhetz/gruvbox'
+
+
 Plug 'ryanoasis/vim-devicons' " Developer Icons
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -36,9 +42,11 @@ Plug 'jlanzarotta/bufexplorer'
 Plug 'mhinz/vim-startify'
 
 Plug 'wakatime/vim-wakatime'
+
+Plug 'cakebaker/scss-syntax.vim'
 call plug#end()
 
-:colorscheme happy_hacking 
+:colorscheme tender 
 
 let g:airline_powerline_fonts = 1
 let g:NERDTreeDirArrowExpandable="+"
