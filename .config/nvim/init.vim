@@ -35,13 +35,15 @@ Plug 'morhetz/gruvbox'
 
 " Languages
 Plug 'fatih/vim-go'
+Plug 'dart-lang/dart-vim-plugin'
+Plug 'thosakwe/vim-flutter'
 Plug 'ryanoasis/vim-devicons' " Developer Icons
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim' " Fuzzy Search
 
 Plug 'airblade/vim-gitgutter/'
-
+Plug 'zivyangll/git-blame.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 
 Plug 'jlanzarotta/bufexplorer'
@@ -66,6 +68,8 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+inoremap <silent><expr> <c-o> coc#refresh()
+
 inoremap <silent><expr> <Tab>
 	  \ coc#pum#visible() ? coc#pum#next(1) :
 	  \ check_back_space() ? "\<Tab>" :
@@ -86,7 +90,10 @@ nmap <silent> \gv :vsplit<CR><Plug>(coc-definition)
 nmap <leader>rn <Plug>(coc-rename)
 
 " Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent>K :call <SID>show_documentation()<CR>
+
+" Git balme
+nnoremap <leader>g :<C-u>call gitblame#echo()<CR>
 
 " Search
 " `SPC b e` - open buf explorer to delete multiple buffers at once like Emacs
