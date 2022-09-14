@@ -15,10 +15,11 @@ set nocompatible
 set hidden
 set encoding=utf-8
 
-" Identations
+" Languages
+" - Indentations
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2                                                   
-set rtp +=~/.vim
 
+set rtp +=~/.vim
 " Plugins
 call plug#begin()
 Plug 'jiangmiao/auto-pairs' "Matching brakets
@@ -27,17 +28,18 @@ Plug 'preservim/nerdcommenter' "NerdCommenter
 Plug 'preservim/nerdtree' " NerdTree
 Plug 'itchyny/lightline.vim'
 
-Plug 'EdenEast/nightfox.nvim' " ColorScheme I love
+" Appearances
+Plug 'EdenEast/nightfox.nvim' 
 Plug 'jacoborus/tender.vim'
 Plug 'tomasiser/vim-code-dark'
 Plug 'dracula/vim'
 Plug 'morhetz/gruvbox'
+Plug 'ryanoasis/vim-devicons' " Developer Icons
 
 " Languages
 Plug 'fatih/vim-go'
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'thosakwe/vim-flutter'
-Plug 'ryanoasis/vim-devicons' " Developer Icons
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim' " Fuzzy Search
@@ -53,6 +55,23 @@ Plug 'wakatime/vim-wakatime'
 call plug#end()
 
 :colorscheme codedark 
+
+" Flutter
+let g:dart_format_on_save = 1
+let g:dartfmt_options = ['--fix', '--line-length 120']
+
+" Go
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_operators = 1
+" Go - Auto formatting and importing
+let g:go_fmt_autosave = 1
+let g:go_fmt_command = "goimports"
+
+" Status line types/signatures
+let g:go_auto_type_info = 1
 
 let g:airline_powerline_fonts = 1
 let g:NERDTreeDirArrowExpandable="+"

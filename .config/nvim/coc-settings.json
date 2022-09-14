@@ -1,3 +1,9 @@
 {
-	"coc.preferences.noselect": false
+	"coc.preferences.noselect": false,
+	"coc.preferences.formatOnType": true,
+	"coc.preferences.formatOnSaveFileTypes": ["*"],
+	"markdownlint.config": {
+    "default": true,
+    "line-length": false
+	}
 }
