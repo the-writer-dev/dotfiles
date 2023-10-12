@@ -161,6 +161,7 @@
 			("@writing" . ?w)
 			("@reading" . ?r)
 			("@youtube" . ?y)))
+  (setq org-image-actual-width 300)
   (setq org-ellipsis " ▾"
         org-hide-emphasis-markers t))
 
@@ -212,13 +213,14 @@
                (window-height . fit-window-to-buffer)))
 
 (defun prompt-for-note-type ()
-  (let ((choice (completing-read "Select note type: " '("Fleeting note" "Reference note" "Literature note" "Permanent note"))))
+  (let ((choice (completing-read "Select note type: " '("Default note" "Fleeting note" "Reference note" "Literature note" "Permanent note") nil t)))
     (cond
-      ((equal choice "Fleeting note") ":fleeting")
-      ((equal choice "Reference note") ":reference")
-      ((equal choice "Literature note") ":literature")
-      ((equal choice "Permanent note") ":permanent")
-      (t (error "Invalid note type")))))
+      ((equal choice "Default note") "")
+      ((equal choice "Fleeting note") ":@fleeting")
+      ((equal choice "Reference note") ":@reference")
+      ((equal choice "Literature note") ":@literature")
+      ((equal choice "Permanent note") ":@permanent")
+      (t nil))))
 
 (use-package dired
   :config 
@@ -236,6 +238,25 @@
    (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
    :bind
    ("M-o" . ace-window))
+
+ (defun open-init-file ()
+   "Open the init file."
+   (interactive)
+   (find-file user-init-file))
+
+
+ (defun org-roam-rg-search ()
+   "Search org-roam directory using consult-ripgrep. With live-preview."
+  (interactive)
+  (let ((counsel-ag-command "rg --null --ignore-case --type org --line-buffered --color=always --max-columns=500 --no-heading --line-number . -e ARG OPTS"))) 
+  (counsel-rg nil org-roam-directory))
+
+ (global-set-key (kbd "C-c rr") 'org-roam-rg-search)
+
+
+ (setq backup-directory-alist '(("." . "~/backups")))
+
+
  
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
